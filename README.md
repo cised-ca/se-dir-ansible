@@ -5,6 +5,7 @@ This project provides Ansible playbooks for setting up the social enterprise dir
 # Preparing Ansible
 
 On your controller machine:
+
 1. Install ansible
 2. Install role dependencies required for social enterprise directory
 
@@ -18,6 +19,6 @@ Using the `hosts` file provided in this repo as an example, setup your local ans
 
 # Executing Playbooks
 
-To setup backend servers for the social enterprise directory, use the following playbook:
+To create backend servers for the social enterprise directory, use the following playbook:
 
   `ansible-playbook playbooks/se-dir-backend-playbook.yml`
