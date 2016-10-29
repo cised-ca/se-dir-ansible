@@ -1,0 +1,5 @@
+- name: This is the top-level playbook for backend servers
+  hosts: backend_servers
+  remote_user: root
+  
+- include: mongo-playbook.yml

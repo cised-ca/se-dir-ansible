@@ -1,0 +1,7 @@
+- hosts: backend_servers
+
+  roles:
+  - Stouts.mongodb
+
+  vars:
+    mongodb_version: "3.2.7"
