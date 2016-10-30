@@ -1,0 +1,2 @@
+- name: install sedir systemd service
+  copy: src=../files/sedir.service dest=/etc/systemd/system/sedir.service

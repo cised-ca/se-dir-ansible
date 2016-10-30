@@ -9,6 +9,7 @@
     repo: https://github.com/cised-ca/social-enterprise-directory.git
     dest: /sedir/app
     version: HEAD
+    force: true
   become: yes
   become_user: sedir
 
@@ -18,3 +19,6 @@
   become_user: sedir
   async: 300
   poll: 15
+
+- name: set INFO log level
+  replace: dest=/sedir/app/config/production.json regexp='warn' replace='info'

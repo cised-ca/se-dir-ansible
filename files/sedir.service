@@ -1,0 +1,17 @@
+[Unit]
+Description=Social Enterprise Directory server
+
+[Service]
+ExecStart=/usr/bin/node app.js
+WorkingDirectory=/sedir/app
+Restart=always
+RestartSec=20
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sedir
+User=sedir
+Group=sedir
+Environment=NODE_ENV=production NODE_PATH=/sedir/app/
+
+[Install]
+WantedBy=multi-user.target

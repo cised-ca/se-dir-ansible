@@ -10,3 +10,7 @@
   tasks:
     - include: ../tasks/setup-backend-directory.yml
       static: yes
+    - include: ../tasks/install-sedir-service.yml
+      static: yes
+    - name: Ensure sedir service is started
+      service: name=sedir state=started enabled=yes
