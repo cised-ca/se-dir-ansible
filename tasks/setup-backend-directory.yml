@@ -1,0 +1,20 @@
+- name: Create /sedir directory
+  file: path=/sedir/app state=directory mode=0700 owner=sedir group=sedir
+
+- name: Create /sedir/logs directory
+  file: path=/sedir/logs state=directory mode=0700 owner=sedir group=sedir
+
+- name: Clone backend social enterprise directory
+  git:
+    repo: https://github.com/cised-ca/social-enterprise-directory.git
+    dest: /sedir/app
+    version: HEAD
+  become: yes
+  become_user: sedir
+
+- name: npm install for social enterprise directory
+  npm: path=/sedir/app
+  become: yes
+  become_user: sedir
+  async: 300
+  poll: 15

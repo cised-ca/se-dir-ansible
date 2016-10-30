@@ -6,7 +6,7 @@
 - include: mongo-playbook.yml
 - include: node-playbook.yml
 
-- hosts: backend_servers 
+- hosts: backend_servers
   tasks:
-    - include: ../tasks/download-backend-code.yml
+    - include: ../tasks/setup-backend-directory.yml
       static: yes
