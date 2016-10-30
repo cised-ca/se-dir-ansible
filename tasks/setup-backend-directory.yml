@@ -20,5 +20,8 @@
   async: 300
   poll: 15
 
+- name: Permissions for production config file
+  file: path=/sedir/app/config/production.json mode=0600
+
 - name: set INFO log level
   replace: dest=/sedir/app/config/production.json regexp='warn' replace='info'
