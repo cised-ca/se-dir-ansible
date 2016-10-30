@@ -1,0 +1,10 @@
+- name: Create /sedir directory
+  file: path=/sedir state=directory mode=0700 owner=sedir group=sedir
+
+- name: Clone backend social enterprise directory
+  git:
+    repo: https://github.com/cised-ca/social-enterprise-directory.git
+    dest: /sedir/
+    version: HEAD
+  become: yes
+  become_user: sedir

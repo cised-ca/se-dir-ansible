@@ -1,0 +1,5 @@
+---
+- name: Create sedir group
+  group: name=sedir
+- name: Create sedir user
+  user: name=sedir group=sedir

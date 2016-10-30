@@ -1,0 +1,15 @@
+- hosts: backend_servers
+
+  pre_tasks:
+  - include: ../tasks/create-sedir-user.yml
+    static: yes
+
+  roles:
+  - geerlingguy.nodejs
+
+  vars:
+    nodejs_version: "4.x"
+    nodejs_install_npm_user: "sedir"
+    nodejs_npm_global_packages:
+      - name: forever
+        version: 0.15.2
