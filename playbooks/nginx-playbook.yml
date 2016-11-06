@@ -1,0 +1,20 @@
+- hosts: frontend_servers
+
+  pre_tasks:
+  - include: ../tasks/create-sedir-user.yml
+    static: yes
+
+  roles:
+    - role: franklinkim.nginx
+
+  vars:
+    nginx_remove_default: yes
+    nginx_sites:
+      - id: weallprofit.ca
+        add_webroot: yes
+        name: weallprofit.ca
+        ssl: true
+        aliases:
+          - www.weallprofit.ca
+        template: ../templates/nginx.j2
+

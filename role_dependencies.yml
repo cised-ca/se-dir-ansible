@@ -5,3 +5,13 @@
   name: Stouts.mongodb
 
 - src: geerlingguy.nodejs
+
+# webserver (nginx)
+- src: franklinkim.nginx
+
+# SSL/TLS certs (letsencrypt)
+- src: thefinn93.letsencrypt
+
+# firewall (ufw)
+- src: franklinkim.ufw
+

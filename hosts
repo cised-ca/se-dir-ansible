@@ -1,2 +1,6 @@
 [backend_servers]
 se-dir-backend.hostname.com
+
+[frontend_servers]
+se-dir-frontend.hostname.com
+

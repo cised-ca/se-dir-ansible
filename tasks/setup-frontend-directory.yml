@@ -1,0 +1,14 @@
+- name: Clean webdir
+  file: path=/var/www/weallprofit.ca/htdocs state=absent
+
+- name: Give permissions to `sedir` user on webdir
+  file: path=/var/www/weallprofit.ca/htdocs state=directory mode=0755 recurse=yes owner=sedir group=sedir
+
+- name: Ensure unzip utility is installed
+  apt:
+    name: unzip
+    update_cache: yes
+
+- name: Download and unpack frontend package
+  unarchive: src=https://github.com/cised-ca/se-dir-frontend-react/releases/download/v1.0.0-beta.1/dist.zip dest=/var/www/weallprofit.ca/htdocs remote_src=yes
+

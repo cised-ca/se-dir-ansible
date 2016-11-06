@@ -1,0 +1,12 @@
+- name: This is the top-level playbook for frontend servers
+  hosts: frontend_servers
+  remote_user: root
+
+- include: letsencrypt-playbook.yml
+- include: nginx-playbook.yml
+- include: ufw-playbook.yml
+
+- hosts: frontend_servers
+  tasks:
+    - include: ../tasks/setup-frontend-directory.yml
+      static: yes

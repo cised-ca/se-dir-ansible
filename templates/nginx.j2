@@ -1,0 +1,89 @@
+{#
+  Based on https://github.com/weareinteractive/ansible-nginx/blob/2b5aba5f15a178f8f117b42017274990c6ee749a/templates/etc-nginx-sites-available-site/body.j2
+
+  * ssl paths changed to work with letsencrypt
+  * changed logs location
+  * add reverse proxy to api
+#}
+
+{% if item.ssl is defined %}
+###
+# Redirect HTTP traffic to HTTPS
+###
+server {
+  server_name {{ item.name }}{% for value in item.aliases|default([]) %} {{ value }}{% endfor %};
+
+  listen {{ item.ip|default('*') }}:{{item.port|default(80)}};
+
+  return 301 https://$server_name$request_uri;
+}
+{% endif %}
+
+server {
+  server_name {{ item.name }}{% for value in item.aliases|default([]) %} {{ value }}{% endfor %};
+  root /var/www/{{ item.id }}/htdocs;
+
+  # --- listen ----------------------------------------------------------------
+
+  {% if item.ssl is not defined %}
+  listen {{ item.ip|default('*') }}:{{item.port|default(80)}};
+  {% else %}
+  listen {{ item.ip|default('*') }}:{{item.ssl.port|default(443)}} ssl;
+  {% endif %}
+
+  {% if item.ssl is defined %}
+  # --- ssl -------------------------------------------------------------------
+  include rules/ssl.conf;
+
+  include /etc/letsencrypt/options-ssl-nginx.conf;
+  ssl_trusted_certificate /etc/letsencrypt/live/{{ item.name }}/chain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ item.name }}/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/{{ item.name }}/fullchain.pem;
+  {% endif %}
+
+  {% if item.rules is defined %}
+  # --- rule ------------------------------------------------------------------
+  {% for value in item.rules %}
+  include rules/{{ value }}.conf;
+  {% endfor %}
+  {% endif %}
+
+  {% if item.auth is defined %}
+  # --- auth ------------------------------------------------------------------
+
+  auth_basic "{{ item.auth.name|default(item.id) }}";
+  auth_basic_user_file /etc/htpasswd/{{ item.auth.file|default(item.id) }};
+  {% endif %}
+
+  # --- api proxy -------------------------------------------------------------
+  location /api {
+    proxy_pass http://localhost:10010;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+  
+  # --- locations -------------------------------------------------------------
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  # --- logging ---------------------------------------------------------------
+
+  # TODO
+  #error_log /var/www/{{ item.name }}/logs/error.log;
+  #access_log /var/www/{{ item.name }}/logs/access.log;
+
+  error_log /var/log/nginx/error-{{ item.id }}.log;
+  access_log /var/log/nginx/access-{{ item.id }}.log;
+
+  {% if item.append is defined %}
+  # --- appended --------------------------------------------------------------
+
+  {{ item.append }}
+  {% endif %}
+}
+

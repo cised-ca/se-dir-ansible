@@ -1,0 +1,11 @@
+- hosts: frontend_servers
+
+  roles:
+    - role: thefinn93.letsencrypt
+      letsencrypt_webroot_path: /var/www/weallprofit.ca/public_html
+      letsencrypt_email: stephane.berube@chromic.org
+      letsencrypt_cert_domains:
+        - weallprofit.ca
+        - www.weallprofit.ca
+      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
+
