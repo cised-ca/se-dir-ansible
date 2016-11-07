@@ -16,9 +16,15 @@ On your controller machine:
 Using the `hosts` file provided in this repo as an example, setup your local ansible hosts file at `/etc/ansible/hosts`
 
 * [backend_servers] : list the servers you want to use as backend for social enterprise directory
+* [frontend_servers] : list the servers you want to use as frontend for social enterprise directory
 
 # Executing Playbooks
 
 To create backend servers for the social enterprise directory, use the following playbook:
 
   `ansible-playbook playbooks/se-dir-backend-playbook.yml`
+  
+
+To create frontend servers for the social enterprise directory, use the following playbook:
+
+  `ansible-playbook playbooks/se-dir-frontend-playbook.yml`
