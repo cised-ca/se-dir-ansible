@@ -11,7 +11,7 @@ StandardError=syslog
 SyslogIdentifier=sedir
 User=sedir
 Group=sedir
-Environment=NODE_ENV=production
+Environment=NODE_ENV=production IP_ADDRESS={{ ansible_default_ipv4.address }}
 
 [Install]
 WantedBy=multi-user.target

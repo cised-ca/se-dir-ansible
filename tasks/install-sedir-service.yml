@@ -1,6 +1,6 @@
 - name: install sedir systemd service
-  copy: src=../files/sedir.service dest=/etc/systemd/system/sedir.service
+  template: src=../templates/sedir.service.j2 dest=/etc/systemd/system/sedir.service owner=root group=root mode=0644
 
-# The systemd module is not available until ansible 2.2 so doing this way for now 
+# The systemd module is not available until ansible 2.2 so doing this way for now
 - name: systemctl daemon-reload
   command: systemctl daemon-reload
