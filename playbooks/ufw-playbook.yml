@@ -1,6 +1,6 @@
 ---
 
-- hosts: frontend_servers
+- hosts: frontend_servers:!backend_servers
   roles:
     - franklinkim.ufw
   become: yes
@@ -14,3 +14,31 @@
     ufw_applications:
      - { name: "OpenSSH" }
 
+- hosts: backend_servers:!frontend_servers
+  roles:
+    - franklinkim.ufw
+  become: yes
+  vars:
+    ufw_rules:
+      - { port: 10010, rule: allow }
+      - { from_ip: '127.0.0.1/8' }
+    ufw_default_forward_policy: DROP
+    ufw_logging: full
+    ufw_applications:
+     - { name: "OpenSSH" }
+
+
+- hosts: backend_servers:&frontend_servers
+  roles:
+    - franklinkim.ufw
+  become: yes
+  vars:
+    ufw_rules:
+      - { port: 80, rule: allow }
+      - { port: 443, rule: allow }
+      - { port: 10010, rule: allow }
+      - { from_ip: '127.0.0.1/8' }
+    ufw_default_forward_policy: DROP
+    ufw_logging: full
+    ufw_applications:
+     - { name: "OpenSSH" }
