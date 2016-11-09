@@ -10,6 +10,8 @@ On your controller machine:
 2. Install role dependencies required for social enterprise directory
 
   `ansible-galaxy install -r role_dependencies.yml`
+  
+3. Set `allow_world_readable_tmpfiles=true` in ansible.cfg
 
 # Configure hosts
 
