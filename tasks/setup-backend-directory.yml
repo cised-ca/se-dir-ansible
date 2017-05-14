@@ -15,6 +15,7 @@
 
 - name: npm install for social enterprise directory
   npm: path=/sedir/app
+  production: yes
   become: yes
   become_user: sedir
   async: 300
