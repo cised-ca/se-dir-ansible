@@ -1,7 +1,7 @@
 # This role taken from github instead of ansible galaxy
 # in order to get latest fix for Ubuntu
 - src: https://github.com/Stouts/Stouts.mongodb
-  version: 2.3.1
+  version: 2.3.5
   name: Stouts.mongodb
 
 - src: geerlingguy.nodejs
@@ -14,4 +14,3 @@
 
 # firewall (ufw)
 - src: franklinkim.ufw
-

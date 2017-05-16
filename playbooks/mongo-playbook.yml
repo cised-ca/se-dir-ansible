@@ -4,4 +4,4 @@
   - Stouts.mongodb
 
   vars:
-    mongodb_version: "3.2.7"
+    mongodb_version: "3.4.4"

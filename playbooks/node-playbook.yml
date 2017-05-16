@@ -8,6 +8,6 @@
   - geerlingguy.nodejs
 
   vars:
-    nodejs_version: "4.x"
+    nodejs_version: "6.x"
     nodejs_install_npm_user: "sedir"
     nodejs_npm_global_packages: []
