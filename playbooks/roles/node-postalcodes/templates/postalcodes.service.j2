@@ -1,0 +1,17 @@
+[Unit]
+Description=Postal Codes server
+
+[Service]
+ExecStart=/usr/bin/node app.js
+WorkingDirectory=/node-postalcodes
+Restart=always
+RestartSec=20
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=postalcodes
+User=sedir
+Group=sedir
+Environment=NODE_ENV=production IP_ADDRESS={{ ansible_default_ipv4.address }}
+
+[Install]
+WantedBy=multi-user.target

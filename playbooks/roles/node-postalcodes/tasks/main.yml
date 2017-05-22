@@ -1,0 +1,5 @@
+---
+- include: setup-postalcodes-server.yml
+  static: yes
+- include: install-postalcodes-service.yml
+  static: yes

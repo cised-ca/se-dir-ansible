@@ -1,0 +1,26 @@
+- name: Create /node-postalcodes directory
+  file: path=/node-postalcodes state=directory mode=0700 owner=sedir group=sedir
+
+- name: Clone node-postalcodes project
+  git:
+    repo: https://github.com/chad-g-adams/node-postalcodes.git
+    dest: /node-postalcodes
+    version: HEAD
+    force: true
+  become: yes
+  become_user: sedir
+
+- name: npm install
+  npm: path=/node-postalcodes
+  become: yes
+  become_user: sedir
+  async: 300
+  poll: 15
+
+- name: Copy config file
+  copy:
+      src: "{{ role_path }}/files/CA.txt"
+      dest: /node-postalcodes/config/CA.txt
+
+- name: install postalcodes config
+  template: src=../templates/config.json dest=/node-postalcodes/config/config.json owner=root group=root mode=0644
