@@ -6,6 +6,10 @@
 - include: node-playbook.yml
 
 - hosts: backend_servers
+  roles:
+    - node-postalcodes
+
+- hosts: backend_servers
   tasks:
     - include: ../tasks/setup-backend-directory.yml
       static: yes
