@@ -10,7 +10,7 @@
       - { port: 443, rule: allow }
       - { from_ip: '127.0.0.1/8', rule: allow }
     ufw_default_forward_policy: DROP
-    ufw_logging: full
+    ufw_logging: low
     ufw_applications:
      - { name: "OpenSSH" }
 
